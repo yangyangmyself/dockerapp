@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="TempDataCache" maxElementsInMemory="50000" eternal="false"
+		maxElementsOnDisk="50000" overflowToDisk="true" timeToIdleSeconds="30"
+		timeToLiveSeconds="60" memoryStoreEvictionPolicy="LFU"  diskPersistent="true"/>	
+
+	<cache name="BizDataCache" maxElementsInMemory="10000" eternal="false"
+		maxElementsOnDisk="10000" overflowToDisk="true" timeToIdleSeconds="7200"
+		timeToLiveSeconds="7300" memoryStoreEvictionPolicy="LFU"  />
+		
+	<cache name="DataDictCache" maxElementsInMemory="10000" eternal="false"
+		maxElementsOnDisk="10000" overflowToDisk="true" timeToIdleSeconds="3600"
+		timeToLiveSeconds="7200" memoryStoreEvictionPolicy="LFU" />
+
+	<cache name="MenuTreeCache" maxElementsInMemory="10000" eternal="false"
+		maxElementsOnDisk="10000" overflowToDisk="true" timeToIdleSeconds="1800"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LFU" />
+	
+	<cache name="DefaultTreeCache" maxElementsInMemory="10000" eternal="false"
+		maxElementsOnDisk="10000" overflowToDisk="true" timeToIdleSeconds="1800"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LFU" />
+		
+	<cache name="LoginUserCache" maxElementsInMemory="10000" eternal="false"
+		maxElementsOnDisk="10000" overflowToDisk="true" timeToIdleSeconds="1800"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LFU" />		
+
+	<cache name="UserTokenCache" maxElementsInMemory="10000" eternal="false"
+		maxElementsOnDisk="50000" overflowToDisk="true" timeToIdleSeconds="1800"
+		timeToLiveSeconds="7200" memoryStoreEvictionPolicy="LFU" />
+		
+				
+</ehcache>
+

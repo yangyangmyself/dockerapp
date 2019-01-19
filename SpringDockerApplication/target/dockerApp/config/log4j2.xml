@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<configuration monitorInterval="30">
+	<appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<RollingFile name="DebugLog" fileName="../logs/app-debug.log"
+             filePattern="../logs/app-debug_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d %p %c [%t] %m%n"/>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+                <SizeBasedTriggeringPolicy size="51200 KB"/>
+            </Policies>
+
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        
+		<RollingFile name="ErrorLog" fileName="../logs/errdata.log"
+             filePattern="../logs/errdata_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="%d %p %c [%t] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+                <SizeBasedTriggeringPolicy size="51200 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>        
+	</appenders>	
+		
+	<loggers>
+		<logger name="org.springframework" level="INFO"></logger>
+		
+		<logger name="com.sunshine" level="DEBUG" additivity="true"></logger>
+		
+		<logger name="com.sunshine.archive.repository" level="DEBUG" additivity="true"></logger>		
+
+		<logger name="com.sunshine.archive.service.impl.VehicleArchiveRealTimeServiceImpl"
+				level="error" additivity="true"/>
+		<root level="info">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="DebugLog" />
+		</root>
+	</loggers>
+</configuration>  

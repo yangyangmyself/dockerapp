@@ -1,0 +1,17 @@
+FROM java:8
+# Copying jdk from OS directory which DockerFile file directory to image directory  
+#COPY jdk1.8.0_144 /usr/local/jdk1.8.0_144
+# Configure jdk enviroment
+#ENV JAVA_HOME /usr/local/jdk1.8.0_144
+#ENV PATH $PATH:$JAVA_HOME/bin:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/jre/lib/rt.jar
+
+# Copy application package include start application shell script
+COPY SpringBootTestApplication /usr/local/SpringBootTestApplication
+
+EXPOSE 8888
+
+WORKDIR /usr/local/SpringBootTestApplication
+
+RUN pwd
+
+ENTRYPOINT ["./startService-linux.sh"]
