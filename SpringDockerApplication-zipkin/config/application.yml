@@ -1,0 +1,12 @@
+spring:
+  zipkin:
+    discoveryClientEnabled: false
+    baseUrl: ${ZIPKIN_BASE_URL}
+  sleuth:
+    sampler:
+      percentage: 1
+server:
+  contextPath: ${APP_CONTEXT}
+app:
+  service:
+    url: ${APP_INVOKE_URL}

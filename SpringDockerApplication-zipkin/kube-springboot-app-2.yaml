@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  labels:
+    k8s-app: mics-app-2
+  name: misc-app-2
+  namespace: kong
+spec:
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: demoapp2
+    spec:
+      containers:
+      - name: demoapp2
+        image: 192.168.2.32:5000/dockerapp:v1.1
+        ports:
+        - containerPort: 8089
+        env:
+          - name: APP_INVOKE_URL
+            value: "http://gdsc-conf:8888/sc-dev.yml"
+          - name: ZIPKIN_BASE_URL
+            value: "http://192.168.2.32:9411/"
+          - name: APP_CONTEXT
+            value: /app2
+          - name: server.port
+            value: "8089"
+          - name: spring.application.name
+            value: "mics-app-2"
+---
+#------------------------springboot service------------------------------
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: mics-app-2
+  name: mics-app-2
+  namespace: kong
+spec:
+  selector:
+    app: demoapp2
+  ports:
+    - protocol: TCP
+      port: 8089
+      targetPort: 8089

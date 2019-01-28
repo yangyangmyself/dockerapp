@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  labels:
+    k8s-app: mics-app-1
+  name: misc-app-1
+  namespace: kong
+spec:
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: demoapp1
+    spec:
+      containers:
+      - name: demoapp1
+        image: 192.168.2.32:5000/dockerapp:v1.1
+        ports:
+        - containerPort: 8088
+        env:
+          - name: ZIPKIN_BASE_URL
+            value: "http://192.168.2.32:9411/"
+          - name: APP_INVOKE_URL
+            value: "http://mics-app-2:8089/app2/api/zipkin/test"
+          - name: APP_CONTEXT
+            value: /app1
+          - name: server.port
+            value: "8088"
+          - name: spring.application.name
+            value: "mics-app-1"
+---
+#------------------------springboot service------------------------------
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: mics-app-1
+  name: mics-app-1
+  namespace: kong
+spec:
+  selector:
+    app: demoapp1
+  ports:
+    - protocol: TCP
+      port: 8088
+      targetPort: 8088
